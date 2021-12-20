@@ -53,22 +53,27 @@ eksctl create cluster --help
   ---
 ## Next, run create command:
   `eksctl create cluster -f cluster.yaml`
-- This command will spin up a cloudformation stack with all the resources need to spin up control plan cluster and node groups for data plane. 
+This command will spin up a cloudformation stack with all the resources need to spin up control plan cluster and node groups for data plane. 
 Usually it will take around 30 minutes for the cluster to be fully created. Please refer to the user guide for details.
 Using the above config file we have created two managed node groups (with on-demand and spot instances) to deploy workloads.
 The Node selector will determine where the workload will be deployed to.
-- The eksctl can be used to manage the cluster from now on,please refer eksctl user guide.
+The eksctl can be used to manage the cluster from now on,please refer eksctl user guide.
 
 ## Configure Kubectl
 
 - The create command also creates a kubeconfig and appends to the .kube\config
 - you should be able to view the nodes using kubectl command, for example `kubectl get nodes -l "role=ec2Workers"`
+```
 
 ## Deploying application workload
 We should now be able to use this kubernetes cluster using familiar kubectl command, and any 
-CI/CD tooling such as Jenkins,Helm Github actions etc.. to manage your work loads
+CI/CD tooling such as Jenkins,Helm Github actions etc.. to manage your work loads. 
 
-### Header 3
+- Rest of the tutorial we will review how to deploy a simple flask service to the cluster.
+- The Source code repository and the CI Pipeline is available here: [**_flaskapis_**](https://github.com/ddabberu/flaskapis.git)
+- Helm chart to manage the deployment configuration here: [**_helm-charts_**](https://github.com/ddabberu/helm-repos/tree/main/charts)
+- Helm repo is setup here: [**_helm-repo_**](https://ddabberu.github.io/helm-repos/) 
+### Flask
 
 - Bulleted
 - List
@@ -79,7 +84,7 @@ CI/CD tooling such as Jenkins,Helm Github actions etc.. to manage your work load
 **Bold** and _Italic_ and `Code` text
 
 [Link](url) and ![Image](src)
-```
+
 
 For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
