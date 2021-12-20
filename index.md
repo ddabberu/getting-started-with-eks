@@ -72,26 +72,51 @@ CI/CD tooling such as Jenkins,Helm Github actions etc.. to manage your work load
 - Rest of the tutorial we will review how to deploy a simple flask service to the cluster.
 - The Source code repository and the CI Pipeline is available here: [**_flaskapis_**](https://github.com/ddabberu/flaskapis.git)
 - Helm chart to manage the deployment configuration here: [**_helm-charts_**](https://github.com/ddabberu/helm-repos/tree/main/charts)
-- Helm repo is setup here: [**_helm-repo_**](https://ddabberu.github.io/helm-repos/) 
-### Flask
+- Helm chart repo is setup here: [**_helm-repo_**](https://ddabberu.github.io/helm-repos/) 
+- setup AWS Elastic Container Registry [**_eksdemos-dabberu_**](https://gallery.ecr.aws/r2m7p7n2/eksdemos-dabberu)
+- Installed Jenkins and configured to use the above resources to manage the deployment
 
-- Bulleted
-- List
+### The CI/CD Pipeline
 
-1. Numbered
-2. List
+```
+pipeline {
+    agent any
+    environment {
+        CREDENTIALS_ID = 'eks'
+    }
+    stages {
+        
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+    
+        stage("Build image") {
+            steps {
+                script {
+                    myapp = docker.build("public.ecr.aws/r2m7p7n2/eksdemos-dabberu:${env.BUILD_ID}")
+                }
+            }
+        }
+        stage("Push image") {
+            steps {
+                script {
+                    docker.withRegistry('https://public.ecr.aws/r2m7p7n2', 'awsecr') {
+                            myapp.push("latest")
+                            myapp.push("${env.BUILD_ID}")
+                    }
+                }
+            }
+        }
+        stage('Deploy to EKS') {
+            steps {
+                echo 'Hello World'
+                // sh 'helm install flaskhw dabberu-repos/flaskhw-chart --namespace apps --create-namespace -f values.yaml --set image.tag="latest" --dry-run'
+                sh 'helm upgrade flaskhw dabberu-repos/flaskhw-chart --install --namespace apps --create-namespace -f values.yaml '
+            }
+        } 
+    }    
+}
+```
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ddabberu/getting-started-with-eks/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
