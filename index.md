@@ -54,8 +54,15 @@ eksctl create cluster --help
 ## Next, run create command:
   `eksctl create cluster -f cluster.yaml`
 This command will spin up a cloudformation stack with all the resources need to spin up control plan cluster and node groups for data plane. 
-Usually it will take around 30 minutes for the cluster to be fully created. Please refer to the user guide for details. 
-## Header 2
+Usually it will take around 30 minutes for the cluster to be fully created. Please refer to the user guide for details.
+Using the above config file we have created two managed node groups (with on-demand and spot instances) to deploy workloads.
+The Node selector will determine where the workload will be deployed to.
+
+The eksctl can be used to manage the cluster from now on, 
+please find more details on how-tos here: [**_eksctl_**](https://eksctl.io/) 
+
+## Configure Kubectl
+
 ### Header 3
 
 - Bulleted
