@@ -1,6 +1,6 @@
-## Welcome to GitHub Pages
+## Getting Started with AWS EKS
 
-You can use the [editor on GitHub](https://github.com/ddabberu/getting-started-with-eks/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Amazon AWS EKS service provides cost effective and fully managed kubernetes control plane.The service automatically scales the control plane on load, detects and replaces unhealthy control plane instances, and it provides automated version updates and patching for them. For detailed information regarding service offering please refer to [AWS EKS Userguide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html?nc2=type_a)
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
