@@ -2,7 +2,7 @@
 
 Amazon AWS EKS service provides cost effective and fully managed kubernetes control plane.The service automatically scales the control plane on load, detects and replaces unhealthy control plane instances, and it provides automated version updates and patching for them. For detailed information regarding service offering please refer to [AWS EKS Userguide](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html?nc2=type_a)
 
-I will present a getting started guide with AWS EKS, We will be creating clusters using [**_eksctl_**](https://eksctl.io/) and build, publish and deploy application workloads using _Jenkins_,_Helm_,_aws ecs_. 
+I will present a getting started guide with AWS EKS, We will be creating clusters using [**_eksctl_**](https://eksctl.io/) and build, publish and deploy application workloads using _Jenkins_,_Helm_,_aws ecr_. 
 
 ### Create EKS Cluster
 
