@@ -6,12 +6,55 @@ I will present a getting started guide with AWS EKS, We will be creating cluster
 
 ### Create EKS Cluster
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Install AWS CLI, kubectl, eksctl as per the user guide directions. Create an IAM User with in AWS with permissions to work with Amazon EKS IAM roles and service linked roles, AWS CloudFormation, and a VPC and related resources.
 
 ```markdown
-Syntax highlighted code block
+eksctl create cluster --help
+# Creating Cluster in us-west2 region
+## First, create cluster.yaml file:
 
-# Header 1
+  ---
+  apiVersion: eksctl.io/v1alpha5
+  kind: ClusterConfig
+
+  metadata:
+    name:  hello-eks-cluster
+    region: us-west-2
+    version: "1.21"
+    tags:
+
+  managedNodeGroups:
+  - name: mng1-ec2
+    labels:
+     role: "ec2workers"
+    desiredCapacity: 3
+    instanceType: m6g.xlarge
+    volumeSize: 100
+    volumeType: gp3
+    ssh:
+      enableSsm: true
+      publicKeyName: myKeyPair
+
+  - name: mng1-ec2-spot
+    labels:
+      role: ec2SpotWorkers
+    desiredCapacity: 3
+    #instanceTypes: ["t4g.medium","t4g.small","t4g.large"]
+    instanceTypes: ["t3.medium", "t3.large"]
+    spot: true
+    ssh:
+      enableSsm: true
+      publicKeyName: myKeyPair
+  cloudWatch:
+    clusterLogging:
+      enableTypes: ["*"]
+  secretsEncryption:
+    keyARN: arn:aws:kms:us-west-2:012345678912:key/key-e1234566b492e91a45e7e0747f655
+  ---
+## Next, run create command:
+  `eksctl create cluster -f cluster.yaml`
+This command will spin up a cloudformation stack with all the resources need to spin up control plan cluster and node groups for data plane. 
+Usually it will take around 30 minutes for the cluster to be fully created. Please refer to the user guide for details. 
 ## Header 2
 ### Header 3
 
