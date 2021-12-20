@@ -4,7 +4,7 @@ Amazon AWS EKS service provides cost effective and fully managed kubernetes cont
 
 I will present a getting started guide with AWS EKS, We will be creating clusters using [**_eksctl_**](https://eksctl.io/) and build, publish and deploy application workloads using _Jenkins_,_Helm_,_aws ecs_. 
 
-### Markdown
+### Create EKS Cluster
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
